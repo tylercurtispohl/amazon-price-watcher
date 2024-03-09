@@ -80,5 +80,11 @@
         }
       ]
     }
+  },
+  "queue": {
+    "priceWatcherQueue": {
+      "providerPlugin": "awscloudformation",
+      "service": "SQS"
+    }
   }
 }

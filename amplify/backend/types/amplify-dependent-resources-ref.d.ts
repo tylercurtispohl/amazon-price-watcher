@@ -15,12 +15,18 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
-    "priceWatcherOrchestrator": {
+    "priceWatcher": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
+    }
+  },
+  "queue": {
+    "priceWatcherQueue": {
+      "QueueARN": "string",
+      "QueueName": "string",
+      "QueueURL": "string"
     }
   }
 }

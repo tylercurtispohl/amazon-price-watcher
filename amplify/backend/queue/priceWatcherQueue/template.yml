@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  This queue triggers the priceWatcher lambda
+Parameters:
+  env:
+    Type: String
+Resources:
+  PriceWatcherQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName:
+        Fn::Join:
+          - ""
+          - - priceWatcher-queue-
+            - Ref: env
+  SQSPolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - Ref: PriceWatcherQueue
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action:
+              - SQS:SendMessage
+              - SQS:ReceiveMessage
+              - SQS:DeleteMessage
+              - SQS:GetQueueAttributes
+            Resource:
+              Fn::GetAtt:
+                - PriceWatcherQueue
+                - Arn
+Outputs:
+  QueueURL:
+    Description: URL of the priceWatcher Queue
+    Value:
+      Ref: PriceWatcherQueue
+  QueueARN:
+    Description: ARN of the priceWatcher Queue
+    Value:
+      Fn::GetAtt:
+        - PriceWatcherQueue
+        - Arn
+  QueueName:
+    Description: Name new the priceWatcher Queue
+    Value:
+      Fn::GetAtt:
+        - PriceWatcherQueue
+        - QueueName
