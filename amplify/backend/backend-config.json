@@ -36,6 +36,24 @@
     },
     "priceWatcher": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "amzpricewatcher"
+        },
+        {
+          "attributes": [
+            "QueueARN"
+          ],
+          "category": "queue",
+          "resourceName": "priceWatcherQueue"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
