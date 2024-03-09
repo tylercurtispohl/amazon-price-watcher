@@ -17,6 +17,9 @@
           "appId": "d2edxt8ijbffil",
           "type": "cicd"
         }
+      },
+      "api": {
+        "amzpricewatcher": {}
       }
     }
   }
