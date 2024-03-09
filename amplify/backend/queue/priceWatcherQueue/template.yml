@@ -1,6 +1,6 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Description: >-
-  This queue triggers the priceWatcher lambda
+  {"createdOn":"Mac","createdBy":"Amplify","createdWith":"12.10.1","stackType":"queue-SQS","metadata":{}}
 Parameters:
   env:
     Type: String
@@ -10,7 +10,7 @@ Resources:
     Properties:
       QueueName:
         Fn::Join:
-          - ""
+          - ''
           - - priceWatcher-queue-
             - Ref: env
   SQSPolicy:
@@ -21,7 +21,7 @@ Resources:
       PolicyDocument:
         Statement:
           - Effect: Allow
-            Principal: "*"
+            Principal: '*'
             Action:
               - SQS:SendMessage
               - SQS:ReceiveMessage

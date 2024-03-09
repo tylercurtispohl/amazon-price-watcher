@@ -82,6 +82,22 @@
         }
       ]
     },
+    "AMPLIFY_function_priceWatcher_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "priceWatcher"
+        }
+      ]
+    },
+    "AMPLIFY_function_priceWatcher_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "priceWatcher"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {
