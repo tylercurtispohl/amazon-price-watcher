@@ -18,8 +18,19 @@
     }
   },
   "function": {
-    "priceWatcherOrchestrator": {
+    "orchestrator": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "amzpricewatcher"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
@@ -32,19 +43,19 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_priceWatcherOrchestrator_deploymentBucketName": {
+    "AMPLIFY_function_orchestrator_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "priceWatcherOrchestrator"
+          "resourceName": "orchestrator"
         }
       ]
     },
-    "AMPLIFY_function_priceWatcherOrchestrator_s3Key": {
+    "AMPLIFY_function_orchestrator_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "priceWatcherOrchestrator"
+          "resourceName": "orchestrator"
         }
       ]
     },

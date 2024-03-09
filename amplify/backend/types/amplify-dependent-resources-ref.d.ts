@@ -7,6 +7,14 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "orchestrator": {
+      "Arn": "string",
+      "CloudWatchEventRule": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "priceWatcherOrchestrator": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

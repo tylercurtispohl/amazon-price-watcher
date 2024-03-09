@@ -42,11 +42,6 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
         console.log("EVENT: ".concat(JSON.stringify(event)));
         return [2 /*return*/, {
                 statusCode: 200,
-                //  Uncomment below to enable CORS requests
-                //  headers: {
-                //      "Access-Control-Allow-Origin": "*",
-                //      "Access-Control-Allow-Headers": "*"
-                //  },
                 body: JSON.stringify("Hello from Lambda!"),
             }];
     });
