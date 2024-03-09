@@ -10,6 +10,14 @@
       "StackName": "amplify-amzpricewatcher-dev-160358",
       "StackId": "arn:aws:cloudformation:us-west-1:992382721136:stack/amplify-amzpricewatcher-dev-160358/880642e0-dda8-11ee-8afa-06eb80161ea5",
       "AmplifyAppId": "d2edxt8ijbffil"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2edxt8ijbffil",
+          "type": "cicd"
+        }
+      }
     }
   }
 }
