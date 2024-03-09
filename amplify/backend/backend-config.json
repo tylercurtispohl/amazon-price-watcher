@@ -17,6 +17,13 @@
       "service": "AppSync"
     }
   },
+  "function": {
+    "priceWatcherOrchestrator": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "hosting": {
     "amplifyhosting": {
       "lastPushTimeStamp": "2024-03-09T00:14:13.257Z",
@@ -25,6 +32,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_priceWatcherOrchestrator_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "priceWatcherOrchestrator"
+        }
+      ]
+    },
+    "AMPLIFY_function_priceWatcherOrchestrator_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "priceWatcherOrchestrator"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {

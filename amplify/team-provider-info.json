@@ -20,6 +20,12 @@
       },
       "api": {
         "amzpricewatcher": {}
+      },
+      "function": {
+        "priceWatcherOrchestrator": {
+          "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
+          "s3Key": "amplify-builds/priceWatcherOrchestrator-68774635686347477738-build.zip"
+        }
       }
     }
   }
