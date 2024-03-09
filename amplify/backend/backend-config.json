@@ -33,6 +33,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "priceWatcher": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "hosting": {
