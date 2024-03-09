@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "amplify:priceWatcherOrchestrator": "cd amplify/backend/function/priceWatcherOrchestrator && tsc -p ./tsconfig.json && cd -",
+    "amplify:priceWatcher": "cd amplify/backend/function/priceWatcher && tsc -p ./tsconfig.json && cd -",
     "amplify:orchestrator": "cd amplify/backend/function/orchestrator && tsc -p ./tsconfig.json && cd -"
   },
   "dependencies": {
