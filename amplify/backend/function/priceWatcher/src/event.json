@@ -1,5 +1,5 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "Records": [
+    { "body": "{\"productId\":\"cc2fadda-b913-461b-a755-f26264ccd68f\"}" }
+  ]
 }
