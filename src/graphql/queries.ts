@@ -135,6 +135,10 @@ export const getProductSubscription = /* GraphQL */ `query GetProductSubscriptio
       updatedAt
       __typename
     }
+    Notifications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -173,6 +177,60 @@ export const listProductSubscriptions = /* GraphQL */ `query ListProductSubscrip
 ` as GeneratedQuery<
   APITypes.ListProductSubscriptionsQueryVariables,
   APITypes.ListProductSubscriptionsQuery
+>;
+export const getNotification = /* GraphQL */ `query GetNotification($id: ID!) {
+  getNotification(id: $id) {
+    id
+    timestamp
+    type
+    productSubscriptionId
+    productSubscription {
+      id
+      email
+      productId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetNotificationQueryVariables,
+  APITypes.GetNotificationQuery
+>;
+export const listNotifications = /* GraphQL */ `query ListNotifications(
+  $id: ID
+  $filter: ModelNotificationFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listNotifications(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      timestamp
+      type
+      productSubscriptionId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListNotificationsQueryVariables,
+  APITypes.ListNotificationsQuery
 >;
 export const pricePointsByProductIdAndTimestamp = /* GraphQL */ `query PricePointsByProductIdAndTimestamp(
   $productId: ID!
@@ -236,4 +294,37 @@ export const productSubscriptionsByProductId = /* GraphQL */ `query ProductSubsc
 ` as GeneratedQuery<
   APITypes.ProductSubscriptionsByProductIdQueryVariables,
   APITypes.ProductSubscriptionsByProductIdQuery
+>;
+export const notificationsByProductSubscriptionIdAndTimestamp = /* GraphQL */ `query NotificationsByProductSubscriptionIdAndTimestamp(
+  $productSubscriptionId: ID!
+  $timestamp: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelNotificationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  notificationsByProductSubscriptionIdAndTimestamp(
+    productSubscriptionId: $productSubscriptionId
+    timestamp: $timestamp
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      timestamp
+      type
+      productSubscriptionId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.NotificationsByProductSubscriptionIdAndTimestampQueryVariables,
+  APITypes.NotificationsByProductSubscriptionIdAndTimestampQuery
 >;

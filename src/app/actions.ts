@@ -2,16 +2,16 @@
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/api";
 import config from "../amplifyconfiguration.json";
-import { createProduct } from "@/graphql/mutations";
+import { createProduct, createProductSubscription } from "@/graphql/mutations";
 import { ProductStatus } from "@/API";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+
 Amplify.configure(config);
 
 const client = generateClient();
 
 export async function addProductInfo(prevState: any, formData: FormData) {
-  console.log(formData.get("name"));
-  console.log(formData.get("url"));
-
   const name = formData.get("name")?.toString();
   const url = formData.get("url")?.toString();
 
@@ -24,7 +24,7 @@ export async function addProductInfo(prevState: any, formData: FormData) {
     return { message: "URL is required" };
   }
 
-  const result = await client.graphql({
+  await client.graphql({
     query: createProduct,
     variables: {
       input: {
@@ -35,7 +35,39 @@ export async function addProductInfo(prevState: any, formData: FormData) {
     },
   });
 
-  console.log(result.data.createProduct);
+  return {
+    message: "Form submitted",
+  };
+}
+
+export async function addProductSubscription(
+  prevState: any,
+  formData: FormData
+) {
+  const productId = formData.get("productId")?.toString();
+  const email = formData.get("email")?.toString();
+
+  if (!productId) {
+    return { message: "Product ID is required" };
+  }
+
+  if (!email) {
+    return { message: "Email is required" };
+  }
+
+  await client.graphql({
+    query: createProductSubscription,
+    variables: {
+      input: {
+        productId,
+        email,
+      },
+    },
+  });
+
+  const productPagePath = `/product/${productId}`;
+  revalidatePath(productPagePath);
+  redirect(productPagePath);
 
   return {
     message: "Form submitted",

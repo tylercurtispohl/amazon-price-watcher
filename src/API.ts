@@ -113,9 +113,32 @@ export type ProductSubscription = {
   email: string,
   productId: string,
   product: Product,
+  Notifications?: ModelNotificationConnection | null,
   createdAt: string,
   updatedAt: string,
 };
+
+export type ModelNotificationConnection = {
+  __typename: "ModelNotificationConnection",
+  items:  Array<Notification | null >,
+  nextToken?: string | null,
+};
+
+export type Notification = {
+  __typename: "Notification",
+  id: string,
+  timestamp: string,
+  type: NotificationType,
+  productSubscriptionId: string,
+  productSubscription: ProductSubscription,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export enum NotificationType {
+  EMAIL = "EMAIL",
+}
+
 
 export type UpdateProductInput = {
   id: string,
@@ -208,6 +231,38 @@ export type DeleteProductSubscriptionInput = {
   id: string,
 };
 
+export type CreateNotificationInput = {
+  id?: string | null,
+  timestamp: string,
+  type: NotificationType,
+  productSubscriptionId: string,
+};
+
+export type ModelNotificationConditionInput = {
+  timestamp?: ModelStringInput | null,
+  type?: ModelNotificationTypeInput | null,
+  productSubscriptionId?: ModelIDInput | null,
+  and?: Array< ModelNotificationConditionInput | null > | null,
+  or?: Array< ModelNotificationConditionInput | null > | null,
+  not?: ModelNotificationConditionInput | null,
+};
+
+export type ModelNotificationTypeInput = {
+  eq?: NotificationType | null,
+  ne?: NotificationType | null,
+};
+
+export type UpdateNotificationInput = {
+  id: string,
+  timestamp?: string | null,
+  type?: NotificationType | null,
+  productSubscriptionId?: string | null,
+};
+
+export type DeleteNotificationInput = {
+  id: string,
+};
+
 export type ModelProductFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -248,6 +303,16 @@ export type ModelProductSubscriptionFilterInput = {
   and?: Array< ModelProductSubscriptionFilterInput | null > | null,
   or?: Array< ModelProductSubscriptionFilterInput | null > | null,
   not?: ModelProductSubscriptionFilterInput | null,
+};
+
+export type ModelNotificationFilterInput = {
+  id?: ModelIDInput | null,
+  timestamp?: ModelStringInput | null,
+  type?: ModelNotificationTypeInput | null,
+  productSubscriptionId?: ModelIDInput | null,
+  and?: Array< ModelNotificationFilterInput | null > | null,
+  or?: Array< ModelNotificationFilterInput | null > | null,
+  not?: ModelNotificationFilterInput | null,
 };
 
 export type ModelStringKeyConditionInput = {
@@ -327,6 +392,15 @@ export type ModelSubscriptionProductSubscriptionFilterInput = {
   productId?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionProductSubscriptionFilterInput | null > | null,
   or?: Array< ModelSubscriptionProductSubscriptionFilterInput | null > | null,
+};
+
+export type ModelSubscriptionNotificationFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  timestamp?: ModelSubscriptionStringInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  productSubscriptionId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionNotificationFilterInput | null > | null,
+  or?: Array< ModelSubscriptionNotificationFilterInput | null > | null,
 };
 
 export type CreateProductMutationVariables = {
@@ -509,6 +583,10 @@ export type CreateProductSubscriptionMutation = {
       createdAt: string,
       updatedAt: string,
     },
+    Notifications?:  {
+      __typename: "ModelNotificationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -535,6 +613,10 @@ export type UpdateProductSubscriptionMutation = {
       createdAt: string,
       updatedAt: string,
     },
+    Notifications?:  {
+      __typename: "ModelNotificationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -558,6 +640,85 @@ export type DeleteProductSubscriptionMutation = {
       url: string,
       status: ProductStatus,
       message?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    Notifications?:  {
+      __typename: "ModelNotificationConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateNotificationMutationVariables = {
+  input: CreateNotificationInput,
+  condition?: ModelNotificationConditionInput | null,
+};
+
+export type CreateNotificationMutation = {
+  createNotification?:  {
+    __typename: "Notification",
+    id: string,
+    timestamp: string,
+    type: NotificationType,
+    productSubscriptionId: string,
+    productSubscription:  {
+      __typename: "ProductSubscription",
+      id: string,
+      email: string,
+      productId: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateNotificationMutationVariables = {
+  input: UpdateNotificationInput,
+  condition?: ModelNotificationConditionInput | null,
+};
+
+export type UpdateNotificationMutation = {
+  updateNotification?:  {
+    __typename: "Notification",
+    id: string,
+    timestamp: string,
+    type: NotificationType,
+    productSubscriptionId: string,
+    productSubscription:  {
+      __typename: "ProductSubscription",
+      id: string,
+      email: string,
+      productId: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteNotificationMutationVariables = {
+  input: DeleteNotificationInput,
+  condition?: ModelNotificationConditionInput | null,
+};
+
+export type DeleteNotificationMutation = {
+  deleteNotification?:  {
+    __typename: "Notification",
+    id: string,
+    timestamp: string,
+    type: NotificationType,
+    productSubscriptionId: string,
+    productSubscription:  {
+      __typename: "ProductSubscription",
+      id: string,
+      email: string,
+      productId: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -686,6 +847,10 @@ export type GetProductSubscriptionQuery = {
       createdAt: string,
       updatedAt: string,
     },
+    Notifications?:  {
+      __typename: "ModelNotificationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -707,6 +872,54 @@ export type ListProductSubscriptionsQuery = {
       id: string,
       email: string,
       productId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetNotificationQueryVariables = {
+  id: string,
+};
+
+export type GetNotificationQuery = {
+  getNotification?:  {
+    __typename: "Notification",
+    id: string,
+    timestamp: string,
+    type: NotificationType,
+    productSubscriptionId: string,
+    productSubscription:  {
+      __typename: "ProductSubscription",
+      id: string,
+      email: string,
+      productId: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListNotificationsQueryVariables = {
+  id?: string | null,
+  filter?: ModelNotificationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListNotificationsQuery = {
+  listNotifications?:  {
+    __typename: "ModelNotificationConnection",
+    items:  Array< {
+      __typename: "Notification",
+      id: string,
+      timestamp: string,
+      type: NotificationType,
+      productSubscriptionId: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -755,6 +968,31 @@ export type ProductSubscriptionsByProductIdQuery = {
       id: string,
       email: string,
       productId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type NotificationsByProductSubscriptionIdAndTimestampQueryVariables = {
+  productSubscriptionId: string,
+  timestamp?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNotificationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type NotificationsByProductSubscriptionIdAndTimestampQuery = {
+  notificationsByProductSubscriptionIdAndTimestamp?:  {
+    __typename: "ModelNotificationConnection",
+    items:  Array< {
+      __typename: "Notification",
+      id: string,
+      timestamp: string,
+      type: NotificationType,
+      productSubscriptionId: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -935,6 +1173,10 @@ export type OnCreateProductSubscriptionSubscription = {
       createdAt: string,
       updatedAt: string,
     },
+    Notifications?:  {
+      __typename: "ModelNotificationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -960,6 +1202,10 @@ export type OnUpdateProductSubscriptionSubscription = {
       createdAt: string,
       updatedAt: string,
     },
+    Notifications?:  {
+      __typename: "ModelNotificationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -982,6 +1228,82 @@ export type OnDeleteProductSubscriptionSubscription = {
       url: string,
       status: ProductStatus,
       message?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    Notifications?:  {
+      __typename: "ModelNotificationConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateNotificationSubscriptionVariables = {
+  filter?: ModelSubscriptionNotificationFilterInput | null,
+};
+
+export type OnCreateNotificationSubscription = {
+  onCreateNotification?:  {
+    __typename: "Notification",
+    id: string,
+    timestamp: string,
+    type: NotificationType,
+    productSubscriptionId: string,
+    productSubscription:  {
+      __typename: "ProductSubscription",
+      id: string,
+      email: string,
+      productId: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateNotificationSubscriptionVariables = {
+  filter?: ModelSubscriptionNotificationFilterInput | null,
+};
+
+export type OnUpdateNotificationSubscription = {
+  onUpdateNotification?:  {
+    __typename: "Notification",
+    id: string,
+    timestamp: string,
+    type: NotificationType,
+    productSubscriptionId: string,
+    productSubscription:  {
+      __typename: "ProductSubscription",
+      id: string,
+      email: string,
+      productId: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteNotificationSubscriptionVariables = {
+  filter?: ModelSubscriptionNotificationFilterInput | null,
+};
+
+export type OnDeleteNotificationSubscription = {
+  onDeleteNotification?:  {
+    __typename: "Notification",
+    id: string,
+    timestamp: string,
+    type: NotificationType,
+    productSubscriptionId: string,
+    productSubscription:  {
+      __typename: "ProductSubscription",
+      id: string,
+      email: string,
+      productId: string,
       createdAt: string,
       updatedAt: string,
     },

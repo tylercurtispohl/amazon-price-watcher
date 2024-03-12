@@ -17,7 +17,7 @@ type Product @model {
 type PricePoint @model {
   id: ID! @primaryKey
   price: Float!
-  timestamp: String!
+  timestamp: AWSDateTime!
   productId: ID! @index(name: "byProduct", sortKeyFields: ["timestamp"])
   product: Product! @belongsTo(fields: ["productId"])
 }
@@ -27,9 +27,25 @@ type ProductSubscription @model {
   email: String!
   productId: ID! @index(name: "byProduct")
   product: Product! @belongsTo(fields: ["productId"])
+  Notifications: [Notification]
+    @hasMany(indexName: "bySubscription", fields: ["id"])
+}
+
+type Notification @model {
+  id: ID! @primaryKey
+  timestamp: AWSDateTime!
+  type: NotificationType!
+  productSubscriptionId: ID!
+    @index(name: "bySubscription", sortKeyFields: ["timestamp"])
+  productSubscription: ProductSubscription!
+    @belongsTo(fields: ["productSubscriptionId"])
 }
 
 enum ProductStatus {
   CONFIGURED
   ERROR
+}
+
+enum NotificationType {
+  EMAIL
 }

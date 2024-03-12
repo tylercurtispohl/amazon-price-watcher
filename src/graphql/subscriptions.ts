@@ -178,6 +178,10 @@ export const onCreateProductSubscription = /* GraphQL */ `subscription OnCreateP
       updatedAt
       __typename
     }
+    Notifications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -202,6 +206,10 @@ export const onUpdateProductSubscription = /* GraphQL */ `subscription OnUpdateP
       message
       createdAt
       updatedAt
+      __typename
+    }
+    Notifications {
+      nextToken
       __typename
     }
     createdAt
@@ -230,6 +238,10 @@ export const onDeleteProductSubscription = /* GraphQL */ `subscription OnDeleteP
       updatedAt
       __typename
     }
+    Notifications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -238,4 +250,79 @@ export const onDeleteProductSubscription = /* GraphQL */ `subscription OnDeleteP
 ` as GeneratedSubscription<
   APITypes.OnDeleteProductSubscriptionSubscriptionVariables,
   APITypes.OnDeleteProductSubscriptionSubscription
+>;
+export const onCreateNotification = /* GraphQL */ `subscription OnCreateNotification(
+  $filter: ModelSubscriptionNotificationFilterInput
+) {
+  onCreateNotification(filter: $filter) {
+    id
+    timestamp
+    type
+    productSubscriptionId
+    productSubscription {
+      id
+      email
+      productId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateNotificationSubscriptionVariables,
+  APITypes.OnCreateNotificationSubscription
+>;
+export const onUpdateNotification = /* GraphQL */ `subscription OnUpdateNotification(
+  $filter: ModelSubscriptionNotificationFilterInput
+) {
+  onUpdateNotification(filter: $filter) {
+    id
+    timestamp
+    type
+    productSubscriptionId
+    productSubscription {
+      id
+      email
+      productId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateNotificationSubscriptionVariables,
+  APITypes.OnUpdateNotificationSubscription
+>;
+export const onDeleteNotification = /* GraphQL */ `subscription OnDeleteNotification(
+  $filter: ModelSubscriptionNotificationFilterInput
+) {
+  onDeleteNotification(filter: $filter) {
+    id
+    timestamp
+    type
+    productSubscriptionId
+    productSubscription {
+      id
+      email
+      productId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteNotificationSubscriptionVariables,
+  APITypes.OnDeleteNotificationSubscription
 >;

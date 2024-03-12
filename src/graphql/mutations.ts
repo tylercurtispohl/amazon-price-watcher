@@ -191,6 +191,10 @@ export const createProductSubscription = /* GraphQL */ `mutation CreateProductSu
       updatedAt
       __typename
     }
+    Notifications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -216,6 +220,10 @@ export const updateProductSubscription = /* GraphQL */ `mutation UpdateProductSu
       message
       createdAt
       updatedAt
+      __typename
+    }
+    Notifications {
+      nextToken
       __typename
     }
     createdAt
@@ -245,6 +253,10 @@ export const deleteProductSubscription = /* GraphQL */ `mutation DeleteProductSu
       updatedAt
       __typename
     }
+    Notifications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -253,4 +265,82 @@ export const deleteProductSubscription = /* GraphQL */ `mutation DeleteProductSu
 ` as GeneratedMutation<
   APITypes.DeleteProductSubscriptionMutationVariables,
   APITypes.DeleteProductSubscriptionMutation
+>;
+export const createNotification = /* GraphQL */ `mutation CreateNotification(
+  $input: CreateNotificationInput!
+  $condition: ModelNotificationConditionInput
+) {
+  createNotification(input: $input, condition: $condition) {
+    id
+    timestamp
+    type
+    productSubscriptionId
+    productSubscription {
+      id
+      email
+      productId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateNotificationMutationVariables,
+  APITypes.CreateNotificationMutation
+>;
+export const updateNotification = /* GraphQL */ `mutation UpdateNotification(
+  $input: UpdateNotificationInput!
+  $condition: ModelNotificationConditionInput
+) {
+  updateNotification(input: $input, condition: $condition) {
+    id
+    timestamp
+    type
+    productSubscriptionId
+    productSubscription {
+      id
+      email
+      productId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateNotificationMutationVariables,
+  APITypes.UpdateNotificationMutation
+>;
+export const deleteNotification = /* GraphQL */ `mutation DeleteNotification(
+  $input: DeleteNotificationInput!
+  $condition: ModelNotificationConditionInput
+) {
+  deleteNotification(input: $input, condition: $condition) {
+    id
+    timestamp
+    type
+    productSubscriptionId
+    productSubscription {
+      id
+      email
+      productId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteNotificationMutationVariables,
+  APITypes.DeleteNotificationMutation
 >;
