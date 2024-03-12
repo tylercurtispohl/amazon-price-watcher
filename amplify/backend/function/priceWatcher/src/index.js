@@ -20,7 +20,12 @@ exports.handler = async (event) => {
 
       const product = await dbClient.getProduct(productId);
 
-      console.log("Found product:", product);
+      // console.log("Found product:", product);
+
+      // const pricePointList = await dbClient.listPricePoints(productId);
+      // return {
+      //   body: JSON.stringify({ message: "Success" }),
+      // };
 
       if (product.status !== "CONFIGURED") {
         const message = `Product is in state ${product.status} - exiting function`;
@@ -50,9 +55,9 @@ exports.handler = async (event) => {
       dbClient.createPricePoint(productId, price);
 
       // TODO: what do we do if there are no price points yet
-      const { pricePoints } = product;
+      const latestPricePoint = await dbClient.getLatestPricePoint(productId);
 
-      if (!pricePoints?.length) {
+      if (!latestPricePoint) {
         // send an email with the initial price
         console.log("Sending initial price to all recipients");
         return {
@@ -60,12 +65,7 @@ exports.handler = async (event) => {
         };
       }
 
-      const sortedPricePoints = sortBy(
-        pricePoints,
-        (p) => p.createdAt
-      ).reverse();
-
-      const latestPrice = sortedPricePoints[0].price;
+      const latestPrice = latestPricePoint.price;
 
       if (price < latestPrice) {
         // send emails to all recipients

@@ -28,7 +28,7 @@
         },
         "priceWatcher": {
           "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
-          "s3Key": "amplify-builds/priceWatcher-2f497238524a7974586c-build.zip"
+          "s3Key": "amplify-builds/priceWatcher-5a41346f625441496176-build.zip"
         },
         "priceWatcherQueue": {}
       },

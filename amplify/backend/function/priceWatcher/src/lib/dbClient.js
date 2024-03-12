@@ -36,18 +36,9 @@ const getProductQuery = /* GraphQL */ `
       url
       status
       message
-      pricePoints {
-        id
-        price
-        createdAt
-        nextToken
-      }
-      subscriptions {
-        email
-        nextToken
-      }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -146,8 +137,100 @@ const createPricePoint = async (productId, price) => {
   return pricePoint;
 };
 
+const pricePointsByProductIdAndTimestamp = /* GraphQL */ `
+  query PricePointsByProductIdAndTimestamp(
+    $productId: ID!
+    $timestamp: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPricePointFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    pricePointsByProductIdAndTimestamp(
+      productId: $productId
+      timestamp: $timestamp
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        price
+        timestamp
+        productId
+      }
+    }
+  }
+`;
+
+const getLatestPricePoint = async (productId) => {
+  const variables = {
+    productId,
+    sortDirection: "DESC",
+    limit: 1,
+  };
+
+  const response = await sendGraphQlRequest(
+    pricePointsByProductIdAndTimestamp,
+    variables
+  );
+
+  const pricePoints = response.data.pricePointsByProductIdAndTimestamp?.items;
+
+  return pricePoints?.[0];
+};
+
+const productSubscriptionsByProductId = /* GraphQL */ `
+  query ProductSubscriptionsByProductId(
+    $productId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProductSubscriptionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    productSubscriptionsByProductId(
+      productId: $productId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        productId
+        notifications {
+          id
+          timestamp
+          type
+        }
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+
+const getProductSubscriptions = async (productId) => {
+  const variables = {
+    productId,
+  };
+
+  const response = await sendGraphQlRequest(
+    productSubscriptionsByProductId,
+    variables
+  );
+
+  const subscriptions = response.data.productSubscriptionsByProductId?.items;
+
+  console.log(subscriptions);
+  return subscriptions;
+};
+
 module.exports = {
   createPricePoint,
   getProduct,
+  getLatestPricePoint,
   updateProductStatus,
 };
