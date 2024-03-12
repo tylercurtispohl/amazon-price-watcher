@@ -7,6 +7,9 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "amzpricewatcherpriceWatcherLayer": {
+      "Arn": "string"
+    },
     "orchestrator": {
       "Arn": "string",
       "CloudWatchEventRule": "string",

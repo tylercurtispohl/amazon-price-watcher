@@ -1,19 +1,38 @@
 const cheerio = require("cheerio");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium");
 
 const findPrice = async (url) => {
   let browser;
   let page;
 
   try {
-    // console.log("opening browser and page");
-    browser = await puppeteer.launch();
+    chromium.setHeadlessMode = true;
+    chromium.setGraphicsMode = false;
+    console.log("opening browser and page");
+    console.log(
+      await chromium.executablePath(
+        process.env.AWS_EXECUTION_ENV
+          ? "/opt/nodejs/node_modules/@sparticuz/chromium/bin"
+          : undefined
+      )
+    );
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(
+        process.env.AWS_EXECUTION_ENV
+          ? "/opt/nodejs/node_modules/@sparticuz/chromium/bin"
+          : undefined
+      ),
+      headless: true,
+    });
     page = await browser.newPage();
 
-    // console.log("navigating to URL");
+    console.log("navigating to URL");
     await page.goto(url, { waitUntil: ["domcontentloaded", "networkidle2"] });
 
-    // console.log("loading page content into cheerio");
+    console.log("loading page content into cheerio");
     // load the HTML into cheerio for DOM parsing
     const productPageHtml = await page.content();
     const productPageCheerio = cheerio.load(productPageHtml);
@@ -27,7 +46,7 @@ const findPrice = async (url) => {
       .text();
 
     if (!priceText) {
-      // console.log("price cannot be found on product page - trying add to cart");
+      console.log("price cannot be found on product page - trying add to cart");
       // Sometimes Amazon doesn't display the price on the product page and instead
       // forces you to add the item to the cart to see the price.
       // So if we didn't find the price, click the "add to cart" button.
@@ -44,12 +63,12 @@ const findPrice = async (url) => {
         };
       }
 
-      // console.log("clicking add to cart");
+      console.log("clicking add to cart");
       await addToCartButton.click();
-      // console.log("waiting for navigation");
+      console.log("waiting for navigation");
       await page.waitForNavigation({ timeout: 10000 });
 
-      // console.log("loading page content into cheerio");
+      console.log("loading page content into cheerio");
       const cartPageHtml = await page.content();
       const cartCheerio = cheerio.load(cartPageHtml);
 
@@ -67,7 +86,7 @@ const findPrice = async (url) => {
     // so strip out just the number
     const priceSubstring = priceText.match(/\d+\.\d{2}/g)[0];
     const price = Number(priceSubstring);
-    // console.log(`Found price ${price}`);
+    console.log(`Found price ${price}`);
 
     if (price && !isNaN(price)) {
       return {

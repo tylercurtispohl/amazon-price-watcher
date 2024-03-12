@@ -1,16 +1,15 @@
-const sgMail = require("@sendgrid/mail");
+// const sgMail = require("@sendgrid/mail");
 const priceFinder = require("./lib/priceFinder");
 const dbClient = require("./lib/dbClient");
-const sortBy = require("lodash/sortBy");
 
-const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+// const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 
 /**
  * @type {import('@types/aws-lambda').SQSEvent}
  */
 exports.handler = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
-  sgMail.setApiKey(SENDGRID_API_KEY);
+  // sgMail.setApiKey(SENDGRID_API_KEY);
 
   for (const record of event.Records) {
     const { productId } = JSON.parse(record.body);

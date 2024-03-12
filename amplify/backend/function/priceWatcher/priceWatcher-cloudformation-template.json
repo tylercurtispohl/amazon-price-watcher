@@ -30,6 +30,10 @@
     "apiamzpricewatcherGraphQLAPIKeyOutput": {
       "Type": "String",
       "Default": "apiamzpricewatcherGraphQLAPIKeyOutput"
+    },
+    "functionamzpricewatcherpriceWatcherLayerArn": {
+      "Type": "String",
+      "Default": "functionamzpricewatcherpriceWatcherLayerArn"
     }
   },
   "Conditions": {
@@ -103,8 +107,13 @@
           ]
         },
         "Runtime": "nodejs18.x",
-        "Layers": [],
-        "Timeout": 25
+        "Layers": [
+          {
+            "Ref": "functionamzpricewatcherpriceWatcherLayerArn"
+          }
+        ],
+        "Timeout": 120,
+        "MemorySize": 1024
       }
     },
     "LambdaExecutionRole": {

@@ -27,6 +27,9 @@
     "apiamzpricewatcherGraphQLAPIKeyOutput": {
       "Type": "String",
       "Default": "apiamzpricewatcherGraphQLAPIKeyOutput"
+    },
+    "queuepriceWatcherQueueQueueURL": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -90,6 +93,9 @@
             },
             "API_AMZPRICEWATCHER_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apiamzpricewatcherGraphQLAPIKeyOutput"
+            },
+            "QUEUE_PRICEWATCHER_QUEUEURL": {
+              "Ref": "queuepriceWatcherQueueQueueURL"
             }
           }
         },

@@ -24,13 +24,17 @@
       "function": {
         "orchestrator": {
           "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
-          "s3Key": "amplify-builds/orchestrator-6e4b4d51766646486153-build.zip"
+          "s3Key": "amplify-builds/orchestrator-7969506d4b742f4f4e51-build.zip"
         },
         "priceWatcher": {
           "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
-          "s3Key": "amplify-builds/priceWatcher-5a41346f625441496176-build.zip"
+          "s3Key": "amplify-builds/priceWatcher-42745944755742795433-build.zip"
         },
-        "priceWatcherQueue": {}
+        "priceWatcherQueue": {},
+        "amzpricewatcherpriceWatcherLayer": {
+          "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
+          "s3Key": "amplify-builds/amzpricewatcherpriceWatcherLayer-LambdaLayerVersion75022d78-build.zip"
+        }
       },
       "queue": {
         "priceWatcherQueue": {}
