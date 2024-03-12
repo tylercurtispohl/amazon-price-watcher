@@ -31,6 +31,5 @@ type ProductSubscription @model {
 
 enum ProductStatus {
   CONFIGURED
-  URL_ERROR
-  SCRAPE_ERROR
+  ERROR
 }

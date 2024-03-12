@@ -12,8 +12,7 @@ export type CreateProductInput = {
 
 export enum ProductStatus {
   CONFIGURED = "CONFIGURED",
-  URL_ERROR = "URL_ERROR",
-  SCRAPE_ERROR = "SCRAPE_ERROR",
+  ERROR = "ERROR",
 }
 
 
