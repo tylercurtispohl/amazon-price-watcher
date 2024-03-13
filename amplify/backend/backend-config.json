@@ -36,7 +36,9 @@
           "resourceName": "amzpricewatcher"
         },
         {
-          "attributes": ["QueueURL"],
+          "attributes": [
+            "QueueURL"
+          ],
           "category": "queue",
           "resourceName": "priceWatcherQueue"
         }
@@ -48,7 +50,9 @@
       "build": true,
       "dependsOn": [
         {
-          "attributes": ["Arn"],
+          "attributes": [
+            "Arn"
+          ],
           "category": "function",
           "resourceName": "amzpricewatcherpriceWatcherLayer"
         },
@@ -62,7 +66,9 @@
           "resourceName": "amzpricewatcher"
         },
         {
-          "attributes": ["QueueARN"],
+          "attributes": [
+            "QueueARN"
+          ],
           "category": "queue",
           "resourceName": "priceWatcherQueue"
         }

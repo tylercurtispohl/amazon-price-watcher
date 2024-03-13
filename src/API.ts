@@ -136,7 +136,8 @@ export type Notification = {
 };
 
 export enum NotificationType {
-  EMAIL = "EMAIL",
+  EMAIL_INITIAL = "EMAIL_INITIAL",
+  EMAIL_NEWPRICE = "EMAIL_NEWPRICE",
 }
 
 
