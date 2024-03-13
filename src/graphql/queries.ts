@@ -135,7 +135,7 @@ export const getProductSubscription = /* GraphQL */ `query GetProductSubscriptio
       updatedAt
       __typename
     }
-    Notifications {
+    notifications {
       nextToken
       __typename
     }

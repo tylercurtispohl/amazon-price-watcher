@@ -13,6 +13,7 @@ export type CreateProductInput = {
 export enum ProductStatus {
   CONFIGURED = "CONFIGURED",
   ERROR = "ERROR",
+  DISABLED = "DISABLED",
 }
 
 
@@ -113,7 +114,7 @@ export type ProductSubscription = {
   email: string,
   productId: string,
   product: Product,
-  Notifications?: ModelNotificationConnection | null,
+  notifications?: ModelNotificationConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -584,7 +585,7 @@ export type CreateProductSubscriptionMutation = {
       createdAt: string,
       updatedAt: string,
     },
-    Notifications?:  {
+    notifications?:  {
       __typename: "ModelNotificationConnection",
       nextToken?: string | null,
     } | null,
@@ -614,7 +615,7 @@ export type UpdateProductSubscriptionMutation = {
       createdAt: string,
       updatedAt: string,
     },
-    Notifications?:  {
+    notifications?:  {
       __typename: "ModelNotificationConnection",
       nextToken?: string | null,
     } | null,
@@ -644,7 +645,7 @@ export type DeleteProductSubscriptionMutation = {
       createdAt: string,
       updatedAt: string,
     },
-    Notifications?:  {
+    notifications?:  {
       __typename: "ModelNotificationConnection",
       nextToken?: string | null,
     } | null,
@@ -848,7 +849,7 @@ export type GetProductSubscriptionQuery = {
       createdAt: string,
       updatedAt: string,
     },
-    Notifications?:  {
+    notifications?:  {
       __typename: "ModelNotificationConnection",
       nextToken?: string | null,
     } | null,
@@ -1174,7 +1175,7 @@ export type OnCreateProductSubscriptionSubscription = {
       createdAt: string,
       updatedAt: string,
     },
-    Notifications?:  {
+    notifications?:  {
       __typename: "ModelNotificationConnection",
       nextToken?: string | null,
     } | null,
@@ -1203,7 +1204,7 @@ export type OnUpdateProductSubscriptionSubscription = {
       createdAt: string,
       updatedAt: string,
     },
-    Notifications?:  {
+    notifications?:  {
       __typename: "ModelNotificationConnection",
       nextToken?: string | null,
     } | null,
@@ -1232,7 +1233,7 @@ export type OnDeleteProductSubscriptionSubscription = {
       createdAt: string,
       updatedAt: string,
     },
-    Notifications?:  {
+    notifications?:  {
       __typename: "ModelNotificationConnection",
       nextToken?: string | null,
     } | null,

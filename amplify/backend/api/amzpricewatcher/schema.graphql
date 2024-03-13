@@ -27,7 +27,7 @@ type ProductSubscription @model {
   email: String!
   productId: ID! @index(name: "byProduct")
   product: Product! @belongsTo(fields: ["productId"])
-  Notifications: [Notification]
+  notifications: [Notification]
     @hasMany(indexName: "bySubscription", fields: ["id"])
 }
 
@@ -44,6 +44,7 @@ type Notification @model {
 enum ProductStatus {
   CONFIGURED
   ERROR
+  DISABLED
 }
 
 enum NotificationType {

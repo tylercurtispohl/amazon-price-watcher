@@ -178,7 +178,7 @@ export const onCreateProductSubscription = /* GraphQL */ `subscription OnCreateP
       updatedAt
       __typename
     }
-    Notifications {
+    notifications {
       nextToken
       __typename
     }
@@ -208,7 +208,7 @@ export const onUpdateProductSubscription = /* GraphQL */ `subscription OnUpdateP
       updatedAt
       __typename
     }
-    Notifications {
+    notifications {
       nextToken
       __typename
     }
@@ -238,7 +238,7 @@ export const onDeleteProductSubscription = /* GraphQL */ `subscription OnDeleteP
       updatedAt
       __typename
     }
-    Notifications {
+    notifications {
       nextToken
       __typename
     }

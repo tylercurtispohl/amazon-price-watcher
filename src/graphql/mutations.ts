@@ -191,7 +191,7 @@ export const createProductSubscription = /* GraphQL */ `mutation CreateProductSu
       updatedAt
       __typename
     }
-    Notifications {
+    notifications {
       nextToken
       __typename
     }
@@ -222,7 +222,7 @@ export const updateProductSubscription = /* GraphQL */ `mutation UpdateProductSu
       updatedAt
       __typename
     }
-    Notifications {
+    notifications {
       nextToken
       __typename
     }
@@ -253,7 +253,7 @@ export const deleteProductSubscription = /* GraphQL */ `mutation DeleteProductSu
       updatedAt
       __typename
     }
-    Notifications {
+    notifications {
       nextToken
       __typename
     }
