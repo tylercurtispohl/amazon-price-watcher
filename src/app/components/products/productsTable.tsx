@@ -21,6 +21,10 @@ const tableColumns = [
     key: "url",
     label: "URL",
   },
+  {
+    key: "status",
+    label: "Status",
+  },
 ];
 
 export const ProductsTable = ({
@@ -41,6 +45,9 @@ export const ProductsTable = ({
           onRowAction={(key) => {
             console.log("row clicked");
             router.push(`/product/${key}`);
+          }}
+          classNames={{
+            td: "text-nowrap max-w-36 text-ellipsis overflow-hidden",
           }}
         >
           <TableHeader columns={tableColumns}>
