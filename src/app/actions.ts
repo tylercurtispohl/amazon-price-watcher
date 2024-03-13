@@ -35,6 +35,10 @@ export async function addProductInfo(prevState: any, formData: FormData) {
     },
   });
 
+  const homePath = `/`;
+  revalidatePath(homePath);
+  redirect(homePath);
+
   return {
     message: "Form submitted",
   };
