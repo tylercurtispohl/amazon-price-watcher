@@ -122,6 +122,11 @@ const sendEmails = async (product, newPrice, oldPrice) => {
 
   const subscriptions = await getProductSubscriptions(product.id);
 
+  if (!subscriptions?.length) {
+    console.log(`Product with id ${product.id} has no subscriptions.`);
+    return;
+  }
+
   // Send initial notifications to all subscriptions if oldPrice does not exist.
   // Otherwise, send only to subscriptions that have not had any notifications yet.
   const sendInitialEmailSubscriptions = subscriptions.filter(

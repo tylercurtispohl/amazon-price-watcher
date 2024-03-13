@@ -24,6 +24,11 @@ exports.handler = async (event) => {
 
       const product = await getProduct(productId);
 
+      if (!product) {
+        console.log(`Could not find product with ID ${productId}`);
+        continue;
+      }
+
       if (product.status !== "CONFIGURED") {
         // We failed to scrape the product price at some point in the past.
         // Exit this iteration of the loop and continue with other messages
@@ -39,7 +44,7 @@ exports.handler = async (event) => {
       if (result.message) {
         // something went wrong while scraping the price.
         // update the database and exit this iteration of the loop
-        updateProductStatus(productId, "ERROR", result.message);
+        await updateProductStatus(productId, "ERROR", result.message);
         console.log(
           `Something went wrong when scraping the product price. Message: ${result.message}`
         );

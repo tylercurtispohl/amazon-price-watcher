@@ -55,7 +55,7 @@ const getProduct = async (productId) => {
 
   const response = await sendGraphQlRequest(getProductQuery, variables);
 
-  const product = response.data.getProduct;
+  const product = response.data?.getProduct;
 
   return product;
 };
@@ -92,7 +92,7 @@ const updateProductStatus = async (productId, status, message) => {
 
   const response = await sendGraphQlRequest(updateProductMutation, variables);
 
-  const product = response.data.updateProduct;
+  const product = response.data?.updateProduct;
 
   return product;
 };
@@ -132,7 +132,7 @@ const createPricePoint = async (productId, price) => {
     variables
   );
 
-  const pricePoint = response.data.updateProduct;
+  const pricePoint = response.data?.updateProduct;
 
   return pricePoint;
 };
@@ -176,7 +176,7 @@ const getLatestPricePoint = async (productId) => {
     variables
   );
 
-  const pricePoints = response.data.pricePointsByProductIdAndTimestamp?.items;
+  const pricePoints = response.data?.pricePointsByProductIdAndTimestamp?.items;
 
   return pricePoints?.[0];
 };
@@ -227,7 +227,7 @@ const getProductSubscriptions = async (productId) => {
     variables
   );
 
-  const subscriptions = response.data.productSubscriptionsByProductId?.items;
+  const subscriptions = response.data?.productSubscriptionsByProductId?.items;
 
   console.log(subscriptions);
   return subscriptions;
@@ -279,7 +279,7 @@ const createNotification = async (productSubscriptionId, timestamp, type) => {
     variables
   );
 
-  return response.data.createNotification;
+  return response.data?.createNotification;
 };
 
 module.exports = {
