@@ -24,7 +24,7 @@ export default async function Page({
   const product = getProductResult.data.getProduct;
 
   return (
-    <main>
+    <div>
       {product ? (
         <>
           <h1>Create a product subscription for {product?.name}</h1>
@@ -33,7 +33,7 @@ export default async function Page({
       ) : (
         <h1>Product not found!</h1>
       )}
-    </main>
+    </div>
   );
 }
 // "use client";

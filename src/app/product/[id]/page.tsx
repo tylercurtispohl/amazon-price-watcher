@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     getSubscriptionsResult.data.productSubscriptionsByProductId.items;
 
   return (
-    <main>
+    <div>
       {product ? (
         <>
           <h1>{product.name}</h1>
@@ -52,6 +52,6 @@ export default async function Page({ params }: { params: { id: string } }) {
       ) : (
         <h1>Product not found!</h1>
       )}
-    </main>
+    </div>
   );
 }

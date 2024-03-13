@@ -28,6 +28,9 @@ export type AmplifyDependentResourcesAttributes = {
   },
   "queue": {
     "priceWatcherQueue": {
+      "PriceMessengerQueueARN": "string",
+      "PriceMessengerQueueName": "string",
+      "PriceMessengerQueueURL": "string",
       "QueueARN": "string",
       "QueueName": "string",
       "QueueURL": "string"

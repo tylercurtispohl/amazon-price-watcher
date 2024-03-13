@@ -7,7 +7,7 @@ export default function Page() {
   const [state, formAction] = useFormState(addProductInfo, { message: "" });
 
   return (
-    <main className="">
+    <div className="">
       <h1>Create product page</h1>
       <form action={formAction}>
         <Input type="text" label="Name" name="name" />
@@ -16,6 +16,6 @@ export default function Page() {
           Submit
         </Button>
       </form>
-    </main>
+    </div>
   );
 }

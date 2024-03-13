@@ -1,9 +1,9 @@
-import { Link } from "@nextui-org/react";
+import { Button, Link } from "@nextui-org/react";
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/api";
 import config from "../amplifyconfiguration.json";
 import { listProducts } from "@/graphql/queries";
-import { ProductStatus } from "@/API";
+import { ProductsTable } from "./components/products/productsTable";
 Amplify.configure(config);
 
 const client = generateClient();
@@ -13,28 +13,25 @@ export default async function Home() {
     query: listProducts,
   });
 
-  const products = listProductsResult.data.listProducts.items;
+  // const products = listProductsResult.data.listProducts.items;
 
-  console.log(products);
+  // console.log(products);
 
   return (
-    <main className="">
-      <h1>Dashboard</h1>
-      <div>
-        <ul>
-          {products &&
-            products.map((p) => (
-              <li key={`li_p.id`}>
-                <Link href={`/product/${p.id}`}>{p.name}</Link>
-              </li>
-            ))}
-        </ul>
-      </div>
-      <div>
-        <Link href="/create-product" color="primary">
+    <div className="">
+      <div className="flex justify-between mb-6">
+        <h1 className="text-2xl tracking-wide font-semibold">Products</h1>
+
+        <Button
+          color="primary"
+          href="/create-product"
+          as={Link}
+          variant="solid"
+        >
           Create a product
-        </Link>
+        </Button>
       </div>
-    </main>
+      <ProductsTable productsQueryResult={listProductsResult.data} />
+    </div>
   );
 }
