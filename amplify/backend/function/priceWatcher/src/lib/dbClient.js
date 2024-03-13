@@ -212,6 +212,11 @@ const productSubscriptionsByProductId = /* GraphQL */ `
   }
 `;
 
+/**
+ * Get all product subscriptions plus their notifications
+ * @param {string} productId
+ * @returns
+ */
 const getProductSubscriptions = async (productId) => {
   const variables = {
     productId,
@@ -228,9 +233,60 @@ const getProductSubscriptions = async (productId) => {
   return subscriptions;
 };
 
+const createNotificationMutation = /* GraphQL */ `
+  mutation CreateNotification(
+    $input: CreateNotificationInput!
+    $condition: ModelNotificationConditionInput
+  ) {
+    createNotification(input: $input, condition: $condition) {
+      id
+      timestamp
+      type
+      productSubscriptionId
+      productSubscription {
+        id
+        email
+        productId
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+
+/**
+ * Create a notification in the database
+ * @param {string} productSubscriptionId
+ * @param {string} timestamp
+ * @param {"EMAIL_INITIAL" | "EMAIL_NEWPRICE"} type
+ * @returns
+ */
+const createNotification = async (productSubscriptionId, timestamp, type) => {
+  const variables = {
+    input: {
+      productSubscriptionId,
+      timestamp,
+      type,
+    },
+  };
+
+  const response = await sendGraphQlRequest(
+    createNotificationMutation,
+    variables
+  );
+
+  return response.data.createNotification;
+};
+
 module.exports = {
+  createNotification,
   createPricePoint,
   getProduct,
+  getProductSubscriptions,
   getLatestPricePoint,
   updateProductStatus,
 };

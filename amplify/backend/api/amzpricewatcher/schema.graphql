@@ -47,5 +47,6 @@ enum ProductStatus {
 }
 
 enum NotificationType {
-  EMAIL
+  EMAIL_INITIAL
+  EMAIL_NEWPRICE
 }
