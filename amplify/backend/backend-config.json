@@ -67,7 +67,8 @@
         },
         {
           "attributes": [
-            "QueueARN"
+            "QueueARN",
+            "PriceMessengerQueueURL"
           ],
           "category": "queue",
           "resourceName": "priceWatcherQueue"

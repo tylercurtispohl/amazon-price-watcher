@@ -34,6 +34,9 @@
     "functionamzpricewatcherpriceWatcherLayerArn": {
       "Type": "String",
       "Default": "functionamzpricewatcherpriceWatcherLayerArn"
+    },
+    "queuepriceWatcherQueuePriceMessengerQueueURL": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -97,6 +100,9 @@
             },
             "API_AMZPRICEWATCHER_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apiamzpricewatcherGraphQLAPIKeyOutput"
+            },
+            "QUEUE_PRICEMESSENGER_QUEUEURL": {
+              "Ref": "queuepriceWatcherQueuePriceMessengerQueueURL"
             }
           }
         },

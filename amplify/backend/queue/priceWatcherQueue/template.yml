@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Description: >-
   {"createdOn":"Mac","createdBy":"Amplify","createdWith":"12.10.1","stackType":"queue-SQS","metadata":{}}
 Parameters:
@@ -8,9 +8,10 @@ Resources:
   PriceWatcherQueue:
     Type: AWS::SQS::Queue
     Properties:
+      VisibilityTimeout: 120
       QueueName:
         Fn::Join:
-          - ''
+          - ""
           - - priceWatcher-queue-
             - Ref: env
   SQSPolicy:
@@ -21,7 +22,7 @@ Resources:
       PolicyDocument:
         Statement:
           - Effect: Allow
-            Principal: '*'
+            Principal: "*"
             Action:
               - SQS:SendMessage
               - SQS:ReceiveMessage
@@ -30,6 +31,33 @@ Resources:
             Resource:
               Fn::GetAtt:
                 - PriceWatcherQueue
+                - Arn
+  PriceMessengerQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 120
+      QueueName:
+        Fn::Join:
+          - ""
+          - - priceMessenger-queue-
+            - Ref: env
+  PriceMessengerSQSPolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - Ref: PriceMessengerQueue
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action:
+              - SQS:SendMessage
+              - SQS:ReceiveMessage
+              - SQS:DeleteMessage
+              - SQS:GetQueueAttributes
+            Resource:
+              Fn::GetAtt:
+                - PriceMessengerQueue
                 - Arn
 Outputs:
   QueueURL:
@@ -47,4 +75,20 @@ Outputs:
     Value:
       Fn::GetAtt:
         - PriceWatcherQueue
+        - QueueName
+  PriceMessengerQueueURL:
+    Description: URL of the priceMessenger Queue
+    Value:
+      Ref: PriceMessengerQueue
+  PriceMessengerQueueARN:
+    Description: ARN of the priceMessenger Queue
+    Value:
+      Fn::GetAtt:
+        - PriceMessengerQueue
+        - Arn
+  PriceMessengerQueueName:
+    Description: Name new the priceMessenger Queue
+    Value:
+      Fn::GetAtt:
+        - PriceMessengerQueue
         - QueueName

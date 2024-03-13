@@ -28,13 +28,15 @@
         },
         "priceWatcher": {
           "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
-          "s3Key": "amplify-builds/priceWatcher-42745944755742795433-build.zip"
+          "s3Key": "amplify-builds/priceWatcher-2b4136654831646c775a-build.zip"
         },
         "priceWatcherQueue": {},
         "amzpricewatcherpriceWatcherLayer": {
           "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
           "s3Key": "amplify-builds/amzpricewatcherpriceWatcherLayer-LambdaLayerVersion75022d78-build.zip"
-        }
+        },
+        "priceWatcherMessenger": {},
+        "priceWatcherMessengerQueue": {}
       },
       "queue": {
         "priceWatcherQueue": {}

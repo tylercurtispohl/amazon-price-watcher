@@ -1,8 +1,11 @@
 // const sgMail = require("@sendgrid/mail");
 const priceFinder = require("./lib/priceFinder");
 const dbClient = require("./lib/dbClient");
+const { SendMessageCommand, SQSClient } = require("@aws-sdk/client-sqs");
 
 // const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+const client = new SQSClient({});
+const QUEUE_URL = process.env.QUEUE_PRICEMESSENGER_QUEUEURL;
 
 /**
  * @type {import('@types/aws-lambda').SQSEvent}
@@ -56,17 +59,17 @@ exports.handler = async (event) => {
       // TODO: what do we do if there are no price points yet
       const latestPricePoint = await dbClient.getLatestPricePoint(productId);
 
-      if (!latestPricePoint) {
-        // send an email with the initial price
-        console.log("Sending initial price to all recipients");
-        return {
-          body: JSON.stringify({ message: "Initial price sent in email" }),
-        };
-      }
+      // if (!latestPricePoint) {
+      //   // send an email with the initial price
+      //   console.log("Sending initial price to all recipients");
+      //   return {
+      //     body: JSON.stringify({ message: "Initial price sent in email" }),
+      //   };
+      // }
 
-      const latestPrice = latestPricePoint.price;
+      const latestPrice = latestPricePoint?.price;
 
-      if (price < latestPrice) {
+      if (!latestPrice || price < latestPrice) {
         // send emails to all recipients
         console.log("Sending new price to all recipients");
         //   const msg = {
@@ -79,6 +82,24 @@ exports.handler = async (event) => {
         //   console.log("Sending email");
         //   const sgResponse = await sgMail.send(msg);
         //   console.log("SendGrid response:", sgResponse);
+        const messageBody = {
+          productId,
+          productName: product.name,
+          oldPrice: latestPrice,
+          newPrice: price,
+        };
+
+        const command = new SendMessageCommand({
+          QueueUrl: QUEUE_URL,
+          DelaySeconds: 0,
+          MessageBody: JSON.stringify(messageBody),
+        });
+
+        console.log("Sending message with body:", messageBody);
+
+        const sendMessageResponse = await client.send(command);
+        console.log("Sent Message. Response:", sendMessageResponse);
+
         return {
           body: JSON.stringify({ message: "New price sent in email" }),
         };
