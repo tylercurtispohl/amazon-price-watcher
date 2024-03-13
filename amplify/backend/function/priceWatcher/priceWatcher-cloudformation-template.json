@@ -34,9 +34,6 @@
     "functionamzpricewatcherpriceWatcherLayerArn": {
       "Type": "String",
       "Default": "functionamzpricewatcherpriceWatcherLayerArn"
-    },
-    "queuepriceWatcherQueuePriceMessengerQueueURL": {
-      "Type": "String"
     }
   },
   "Conditions": {
@@ -100,17 +97,11 @@
             },
             "API_AMZPRICEWATCHER_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apiamzpricewatcherGraphQLAPIKeyOutput"
-            },
-            "QUEUE_PRICEMESSENGER_QUEUEURL": {
-              "Ref": "queuepriceWatcherQueuePriceMessengerQueueURL"
             }
           }
         },
         "Role": {
-          "Fn::GetAtt": [
-            "LambdaExecutionRole",
-            "Arn"
-          ]
+          "Fn::GetAtt": ["LambdaExecutionRole", "Arn"]
         },
         "Runtime": "nodejs18.x",
         "Layers": [
@@ -149,22 +140,16 @@
             {
               "Effect": "Allow",
               "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ]
+                "Service": ["lambda.amazonaws.com"]
               },
-              "Action": [
-                "sts:AssumeRole"
-              ]
+              "Action": ["sts:AssumeRole"]
             }
           ]
         }
       }
     },
     "lambdaexecutionpolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
+      "DependsOn": ["LambdaExecutionRole"],
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyName": "lambda-execution-policy",
@@ -218,9 +203,7 @@
       }
     },
     "AmplifyResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
+      "DependsOn": ["LambdaExecutionRole"],
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyName": "amplify-lambda-execution-policy",
@@ -234,9 +217,7 @@
           "Statement": [
             {
               "Effect": "Allow",
-              "Action": [
-                "appsync:GraphQL"
-              ],
+              "Action": ["appsync:GraphQL"],
               "Resource": [
                 {
                   "Fn::Join": [
@@ -293,10 +274,7 @@
     },
     "Arn": {
       "Value": {
-        "Fn::GetAtt": [
-          "LambdaFunction",
-          "Arn"
-        ]
+        "Fn::GetAtt": ["LambdaFunction", "Arn"]
       }
     },
     "Region": {
@@ -311,10 +289,7 @@
     },
     "LambdaExecutionRoleArn": {
       "Value": {
-        "Fn::GetAtt": [
-          "LambdaExecutionRole",
-          "Arn"
-        ]
+        "Fn::GetAtt": ["LambdaExecutionRole", "Arn"]
       }
     }
   }
