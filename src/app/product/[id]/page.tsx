@@ -2,7 +2,9 @@ import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/api";
 import config from "../../../amplifyconfiguration.json";
 import { getProduct, productSubscriptionsByProductId } from "@/graphql/queries";
-import { Link } from "@nextui-org/react";
+import { Button, Link } from "@nextui-org/react";
+import { SubscriptionsTable } from "@/app/components/subscriptions/subscriptionsTable";
+
 Amplify.configure(config);
 
 const client = generateClient();
@@ -26,28 +28,35 @@ export default async function Page({ params }: { params: { id: string } }) {
     },
   });
 
-  const subscriptions =
-    getSubscriptionsResult.data.productSubscriptionsByProductId.items;
-
   return (
     <div>
       {product ? (
         <>
-          <h1>{product.name}</h1>
-          <p>{product.url}</p>
-          <div>
-            <h2>Subscriptions</h2>
-            {subscriptions && (
-              <ul>
-                {subscriptions.map((s) => (
-                  <li key={`subscription_${s.id}`}>{s.email}</li>
-                ))}
-              </ul>
-            )}
+          <div className="mb-6">
+            <h1 className="text-2xl font-semibold tracking-wide mb-6">
+              {product.name}
+            </h1>
+            <h2 className="font-medium tracking-wide">URL:</h2>
+            <p>{product.url}</p>
           </div>
-          <Link href={`/create-subscription/${product.id}`}>
-            Create a subscription
-          </Link>
+          <div>
+            <div className="flex flex-row justify-between mb-2">
+              <h2 className="font-medium tracking-wide">Subscriptions</h2>
+              <Button
+                color="primary"
+                href={`/create-subscription/${id}`}
+                as={Link}
+                variant="solid"
+              >
+                Create a subscription
+              </Button>
+            </div>
+            <SubscriptionsTable
+              productSubscriptionsByProductIdQueryResult={
+                getSubscriptionsResult.data
+              }
+            />
+          </div>
         </>
       ) : (
         <h1>Product not found!</h1>
