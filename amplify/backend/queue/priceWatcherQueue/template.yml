@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Description: >-
   {"createdOn":"Mac","createdBy":"Amplify","createdWith":"12.10.1","stackType":"queue-SQS","metadata":{}}
 Parameters:
@@ -11,7 +11,7 @@ Resources:
       VisibilityTimeout: 120
       QueueName:
         Fn::Join:
-          - ""
+          - ''
           - - priceWatcher-queue-
             - Ref: env
   SQSPolicy:
@@ -22,7 +22,7 @@ Resources:
       PolicyDocument:
         Statement:
           - Effect: Allow
-            Principal: "*"
+            Principal: '*'
             Action:
               - SQS:SendMessage
               - SQS:ReceiveMessage
@@ -38,7 +38,7 @@ Resources:
       VisibilityTimeout: 120
       QueueName:
         Fn::Join:
-          - ""
+          - ''
           - - priceMessenger-queue-
             - Ref: env
   PriceMessengerSQSPolicy:
@@ -49,7 +49,7 @@ Resources:
       PolicyDocument:
         Statement:
           - Effect: Allow
-            Principal: "*"
+            Principal: '*'
             Action:
               - SQS:SendMessage
               - SQS:ReceiveMessage

@@ -1,42 +1,41 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amzpricewatcher-dev-160358-authRole",
-      "UnauthRoleArn": "arn:aws:iam::992382721136:role/amplify-amzpricewatcher-dev-160358-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::992382721136:role/amplify-amzpricewatcher-dev-160358-authRole",
+      "AuthRoleName": "amplify-amzpricewatcher-dev-75909-authRole",
+      "UnauthRoleArn": "arn:aws:iam::730335589264:role/amplify-amzpricewatcher-dev-75909-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::730335589264:role/amplify-amzpricewatcher-dev-75909-authRole",
       "Region": "us-west-1",
-      "DeploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
-      "UnauthRoleName": "amplify-amzpricewatcher-dev-160358-unauthRole",
-      "StackName": "amplify-amzpricewatcher-dev-160358",
-      "StackId": "arn:aws:cloudformation:us-west-1:992382721136:stack/amplify-amzpricewatcher-dev-160358/880642e0-dda8-11ee-8afa-06eb80161ea5",
-      "AmplifyAppId": "d2edxt8ijbffil"
+      "DeploymentBucketName": "amplify-amzpricewatcher-dev-75909-deployment",
+      "UnauthRoleName": "amplify-amzpricewatcher-dev-75909-unauthRole",
+      "StackName": "amplify-amzpricewatcher-dev-75909",
+      "StackId": "arn:aws:cloudformation:us-west-1:730335589264:stack/amplify-amzpricewatcher-dev-75909/3fe1dba0-e14a-11ee-8bf6-02057b4235d3",
+      "AmplifyAppId": "d2vxw4o9kxswbk"
     },
     "categories": {
+      "function": {
+        "amzpricewatcherpriceWatcherLayer": {
+          "deploymentBucketName": "amplify-amzpricewatcher-dev-75909-deployment",
+          "s3Key": "amplify-builds/amzpricewatcherpriceWatcherLayer-LambdaLayerVersion47600201-build.zip"
+        },
+        "orchestrator": {
+          "deploymentBucketName": "amplify-amzpricewatcher-dev-75909-deployment",
+          "s3Key": "amplify-builds/orchestrator-7969506d4b742f4f4e51-build.zip"
+        },
+        "priceWatcher": {
+          "deploymentBucketName": "amplify-amzpricewatcher-dev-75909-deployment",
+          "s3Key": "amplify-builds/priceWatcher-353952494b5a35353144-build.zip"
+        },
+        "amzpricewatcher": {},
+        "priceWatcherQueue": {}
+      },
       "hosting": {
         "amplifyhosting": {
-          "appId": "d2edxt8ijbffil",
+          "appId": "d2vxw4o9kxswbk",
           "type": "cicd"
         }
       },
       "api": {
         "amzpricewatcher": {}
-      },
-      "function": {
-        "orchestrator": {
-          "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
-          "s3Key": "amplify-builds/orchestrator-7969506d4b742f4f4e51-build.zip"
-        },
-        "priceWatcher": {
-          "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
-          "s3Key": "amplify-builds/priceWatcher-2b4136654831646c775a-build.zip"
-        },
-        "priceWatcherQueue": {},
-        "amzpricewatcherpriceWatcherLayer": {
-          "deploymentBucketName": "amplify-amzpricewatcher-dev-160358-deployment",
-          "s3Key": "amplify-builds/amzpricewatcherpriceWatcherLayer-LambdaLayerVersion75022d78-build.zip"
-        },
-        "priceWatcherMessenger": {},
-        "priceWatcherMessengerQueue": {}
       },
       "queue": {
         "priceWatcherQueue": {}
