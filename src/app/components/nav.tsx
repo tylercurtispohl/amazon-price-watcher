@@ -16,7 +16,7 @@ export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
-    <Navbar maxWidth="xl">
+    <Navbar maxWidth="xl" isBordered>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
