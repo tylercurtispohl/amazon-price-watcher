@@ -46,7 +46,7 @@ const getProductQuery = /* GraphQL */ `
 /**
  * Gets a single product by ID
  * @param {string} productId
- * @returns
+ * @returns a single Product record
  */
 const getProduct = async (productId) => {
   const variables = {
@@ -79,7 +79,7 @@ const updateProductMutation = /* GraphQL */ `
  * @param {string} productId
  * @param {"CONFIGURED" | "ERROR"} status
  * @param {string} message
- * @returns
+ * @returns The updated Product record
  */
 const updateProductStatus = async (productId, status, message) => {
   const variables = {
@@ -114,7 +114,7 @@ const createPricePointMutation = /* GraphQL */ `
  * Adds a price point to the database
  * @param {string} productId
  * @param {number} price
- * @returns
+ * @returns The new PricePoint record
  */
 const createPricePoint = async (productId, price) => {
   const timestamp = new Date().toISOString();
@@ -164,6 +164,11 @@ const pricePointsByProductIdAndTimestamp = /* GraphQL */ `
   }
 `;
 
+/**
+ * Gets the latest PricePoint record with the given productId
+ * @param {string} productId
+ * @returns A single PricePoint record
+ */
 const getLatestPricePoint = async (productId) => {
   const variables = {
     productId,
@@ -200,11 +205,6 @@ const productSubscriptionsByProductId = /* GraphQL */ `
         id
         email
         productId
-        notifications {
-          id
-          timestamp
-          type
-        }
       }
       nextToken
       __typename
@@ -215,7 +215,7 @@ const productSubscriptionsByProductId = /* GraphQL */ `
 /**
  * Get all product subscriptions plus their notifications
  * @param {string} productId
- * @returns
+ * @returns An array of ProductSubscription records
  */
 const getProductSubscriptions = async (productId) => {
   const variables = {
@@ -229,8 +229,53 @@ const getProductSubscriptions = async (productId) => {
 
   const subscriptions = response.data?.productSubscriptionsByProductId?.items;
 
-  console.log(subscriptions);
   return subscriptions;
+};
+
+const notificationsByProductSubscriptionIdAndTimestamp = /* GraphQL */ `
+  query NotificationsByProductSubscriptionIdAndTimestamp(
+    $productSubscriptionId: ID!
+    $timestamp: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    notificationsByProductSubscriptionIdAndTimestamp(
+      productSubscriptionId: $productSubscriptionId
+      timestamp: $timestamp
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+
+/**
+ * Gets the latest notification for a subscription
+ * @param {string} productSubscriptionId
+ * @returns A single Notification record
+ */
+const getLatestNotification = async (productSubscriptionId) => {
+  const variables = {
+    productSubscriptionId,
+    sortDirection: "DESC",
+    limit: 1,
+  };
+
+  const response = await sendGraphQlRequest(
+    notificationsByProductSubscriptionIdAndTimestamp,
+    variables
+  );
+
+  return response.data?.notificationsByProductSubscriptionIdAndTimestamp?.items;
 };
 
 const createNotificationMutation = /* GraphQL */ `
@@ -263,7 +308,7 @@ const createNotificationMutation = /* GraphQL */ `
  * @param {string} productSubscriptionId
  * @param {string} timestamp
  * @param {"EMAIL_INITIAL" | "EMAIL_NEWPRICE"} type
- * @returns
+ * @returns The new Notification record
  */
 const createNotification = async (productSubscriptionId, timestamp, type) => {
   const variables = {
@@ -285,6 +330,7 @@ const createNotification = async (productSubscriptionId, timestamp, type) => {
 module.exports = {
   createNotification,
   createPricePoint,
+  getLatestNotification,
   getProduct,
   getProductSubscriptions,
   getLatestPricePoint,

@@ -1,4 +1,8 @@
-const { createNotification, getProductSubscriptions } = require("./dbClient");
+const {
+  createNotification,
+  getProductSubscriptions,
+  getLatestNotification,
+} = require("./dbClient");
 const sgMail = require("@sendgrid/mail");
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
@@ -22,7 +26,8 @@ const sendMessageToSendGrid = async (email, subject, message) => {
     // TODO: Does sendgrid send 400 errors in a response OR will any errors cause
     // an exception? If they send errors in the response, we'll want to handle
     // that better here.
-    await sgMail.send(msg);
+    const response = await sgMail.send(msg);
+    console.log("Sendgrid response: ", response);
   } catch (err) {
     console.log(
       `Something went wrong when sending an email to ${email}: `,
@@ -100,7 +105,7 @@ const sendNewPriceMessages = async (
   oldPrice
 ) => {
   const subject = `Price drop on ${productName}!`;
-  const message = `The price of ${productName} dropped from $${oldPrice} to $${newPrice}. Go here to buy it: ${productUrl}`;
+  const message = `The price of ${productName} dropped from $${oldPrice} to $${newPrice}! Go here to buy it: ${productUrl}`;
 
   await sendMessagesAndCreateNotifications(
     subscriptions,
@@ -111,6 +116,27 @@ const sendNewPriceMessages = async (
 };
 
 /**
+ * Gets a set of product subscription IDs where there has been
+ * at least one notification.
+ * @param {ProductSubscription[]} subscriptions
+ * @returns A set of subscription IDs
+ */
+const getHasNotificationSet = async (subscriptions) => {
+  const hasNotificationSet = new Set();
+
+  const promises = subscriptions.map(async (s) => {
+    const latestNotification = await getLatestNotification(s.id);
+    if (latestNotification?.length) {
+      hasNotificationSet.add(s.id);
+    }
+  });
+
+  await Promise.all(promises);
+
+  return hasNotificationSet;
+};
+
+/**
  * Sends email notifications to all subscriptions of a product.
  * Sends both initial price and new price notifications.
  * @param {Product} product
@@ -118,9 +144,21 @@ const sendNewPriceMessages = async (
  * @param {number} oldPrice
  */
 const sendEmails = async (product, newPrice, oldPrice) => {
+  console.log(`Sending emails for product: `, {
+    ...product,
+    newPrice,
+    oldPrice,
+  });
+
   sgMail.setApiKey(SENDGRID_API_KEY);
 
   const subscriptions = await getProductSubscriptions(product.id);
+
+  console.log(`Found ${subscriptions.length} subscriptions: `, subscriptions);
+
+  const hasNotificationSet = await getHasNotificationSet(subscriptions);
+
+  console.log("hasNotificationSet includes: ", hasNotificationSet);
 
   if (!subscriptions?.length) {
     console.log(`Product with id ${product.id} has no subscriptions.`);
@@ -130,7 +168,12 @@ const sendEmails = async (product, newPrice, oldPrice) => {
   // Send initial notifications to all subscriptions if oldPrice does not exist.
   // Otherwise, send only to subscriptions that have not had any notifications yet.
   const sendInitialEmailSubscriptions = subscriptions.filter(
-    (s) => !oldPrice || !s.notifications?.length
+    (s) => !oldPrice || !hasNotificationSet.has(s.id)
+  );
+
+  console.log(
+    "Sending initial emails to subscriptions: ",
+    sendInitialEmailSubscriptions
   );
 
   await sendInitialMessages(
@@ -141,9 +184,14 @@ const sendEmails = async (product, newPrice, oldPrice) => {
   );
 
   // Send new price notifications to all subscriptions if there is an old price
-  // AND they have already had notifications.
+  // AND the new price is less than the old price AND they have already had notifications.
   const sendNewPriceSubscriptions = subscriptions.filter(
-    (s) => oldPrice && s.notifications?.length
+    (s) => oldPrice && newPrice < oldPrice && hasNotificationSet.has(s.id)
+  );
+
+  console.log(
+    "Sending new price emails to subscriptions: ",
+    sendNewPriceSubscriptions
   );
 
   await sendNewPriceMessages(
