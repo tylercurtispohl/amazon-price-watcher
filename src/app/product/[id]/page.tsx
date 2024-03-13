@@ -4,6 +4,8 @@ import config from "../../../amplifyconfiguration.json";
 import { getProduct, productSubscriptionsByProductId } from "@/graphql/queries";
 import { Button, Link } from "@nextui-org/react";
 import { SubscriptionsTable } from "@/app/components/subscriptions/subscriptionsTable";
+import { ProductStatus } from "@/API";
+import { ProductButtons } from "@/app/components/products/productButtons";
 
 Amplify.configure(config);
 
@@ -33,11 +35,20 @@ export default async function Page({ params }: { params: { id: string } }) {
       {product ? (
         <>
           <div className="mb-6">
-            <h1 className="text-2xl font-semibold tracking-wide mb-6">
-              {product.name}
-            </h1>
-            <h2 className="font-medium tracking-wide">URL:</h2>
-            <p>{product.url}</p>
+            <div className="flex flex-row justify-between">
+              <h1 className="text-2xl font-semibold tracking-wide mb-6">
+                {product.name}
+              </h1>
+              <ProductButtons productId={product.id} status={product.status} />
+            </div>
+            <div className="mb-2">
+              <h2 className="font-medium tracking-wide">Status:</h2>
+              <p>{product.status}</p>
+            </div>
+            <div>
+              <h2 className="font-medium tracking-wide">URL:</h2>
+              <p>{product.url}</p>
+            </div>
           </div>
           <div>
             <div className="flex flex-row justify-between mb-2">
