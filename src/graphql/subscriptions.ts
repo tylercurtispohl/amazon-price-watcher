@@ -167,6 +167,7 @@ export const onCreateProductSubscription = /* GraphQL */ `subscription OnCreateP
   onCreateProductSubscription(filter: $filter) {
     id
     email
+    status
     productId
     product {
       id
@@ -197,6 +198,7 @@ export const onUpdateProductSubscription = /* GraphQL */ `subscription OnUpdateP
   onUpdateProductSubscription(filter: $filter) {
     id
     email
+    status
     productId
     product {
       id
@@ -227,6 +229,7 @@ export const onDeleteProductSubscription = /* GraphQL */ `subscription OnDeleteP
   onDeleteProductSubscription(filter: $filter) {
     id
     email
+    status
     productId
     product {
       id
@@ -262,6 +265,7 @@ export const onCreateNotification = /* GraphQL */ `subscription OnCreateNotifica
     productSubscription {
       id
       email
+      status
       productId
       createdAt
       updatedAt
@@ -287,6 +291,7 @@ export const onUpdateNotification = /* GraphQL */ `subscription OnUpdateNotifica
     productSubscription {
       id
       email
+      status
       productId
       createdAt
       updatedAt
@@ -312,6 +317,7 @@ export const onDeleteNotification = /* GraphQL */ `subscription OnDeleteNotifica
     productSubscription {
       id
       email
+      status
       productId
       createdAt
       updatedAt

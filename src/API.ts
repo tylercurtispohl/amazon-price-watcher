@@ -112,12 +112,20 @@ export type ProductSubscription = {
   __typename: "ProductSubscription",
   id: string,
   email: string,
+  status: ProductSubscriptionStatus,
   productId: string,
   product: Product,
   notifications?: ModelNotificationConnection | null,
   createdAt: string,
   updatedAt: string,
 };
+
+export enum ProductSubscriptionStatus {
+  CONFIGURED = "CONFIGURED",
+  ERROR = "ERROR",
+  DISABLED = "DISABLED",
+}
+
 
 export type ModelNotificationConnection = {
   __typename: "ModelNotificationConnection",
@@ -212,20 +220,28 @@ export type DeletePricePointInput = {
 export type CreateProductSubscriptionInput = {
   id?: string | null,
   email: string,
+  status: ProductSubscriptionStatus,
   productId: string,
 };
 
 export type ModelProductSubscriptionConditionInput = {
   email?: ModelStringInput | null,
+  status?: ModelProductSubscriptionStatusInput | null,
   productId?: ModelIDInput | null,
   and?: Array< ModelProductSubscriptionConditionInput | null > | null,
   or?: Array< ModelProductSubscriptionConditionInput | null > | null,
   not?: ModelProductSubscriptionConditionInput | null,
 };
 
+export type ModelProductSubscriptionStatusInput = {
+  eq?: ProductSubscriptionStatus | null,
+  ne?: ProductSubscriptionStatus | null,
+};
+
 export type UpdateProductSubscriptionInput = {
   id: string,
   email?: string | null,
+  status?: ProductSubscriptionStatus | null,
   productId?: string | null,
 };
 
@@ -301,6 +317,7 @@ export type ModelPricePointFilterInput = {
 export type ModelProductSubscriptionFilterInput = {
   id?: ModelIDInput | null,
   email?: ModelStringInput | null,
+  status?: ModelProductSubscriptionStatusInput | null,
   productId?: ModelIDInput | null,
   and?: Array< ModelProductSubscriptionFilterInput | null > | null,
   or?: Array< ModelProductSubscriptionFilterInput | null > | null,
@@ -391,6 +408,7 @@ export type ModelSubscriptionFloatInput = {
 export type ModelSubscriptionProductSubscriptionFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   email?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
   productId?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionProductSubscriptionFilterInput | null > | null,
   or?: Array< ModelSubscriptionProductSubscriptionFilterInput | null > | null,
@@ -574,6 +592,7 @@ export type CreateProductSubscriptionMutation = {
     __typename: "ProductSubscription",
     id: string,
     email: string,
+    status: ProductSubscriptionStatus,
     productId: string,
     product:  {
       __typename: "Product",
@@ -604,6 +623,7 @@ export type UpdateProductSubscriptionMutation = {
     __typename: "ProductSubscription",
     id: string,
     email: string,
+    status: ProductSubscriptionStatus,
     productId: string,
     product:  {
       __typename: "Product",
@@ -634,6 +654,7 @@ export type DeleteProductSubscriptionMutation = {
     __typename: "ProductSubscription",
     id: string,
     email: string,
+    status: ProductSubscriptionStatus,
     productId: string,
     product:  {
       __typename: "Product",
@@ -670,6 +691,7 @@ export type CreateNotificationMutation = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,
@@ -695,6 +717,7 @@ export type UpdateNotificationMutation = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,
@@ -720,6 +743,7 @@ export type DeleteNotificationMutation = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,
@@ -838,6 +862,7 @@ export type GetProductSubscriptionQuery = {
     __typename: "ProductSubscription",
     id: string,
     email: string,
+    status: ProductSubscriptionStatus,
     productId: string,
     product:  {
       __typename: "Product",
@@ -873,6 +898,7 @@ export type ListProductSubscriptionsQuery = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,
@@ -896,6 +922,7 @@ export type GetNotificationQuery = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,
@@ -969,6 +996,7 @@ export type ProductSubscriptionsByProductIdQuery = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,
@@ -1164,6 +1192,7 @@ export type OnCreateProductSubscriptionSubscription = {
     __typename: "ProductSubscription",
     id: string,
     email: string,
+    status: ProductSubscriptionStatus,
     productId: string,
     product:  {
       __typename: "Product",
@@ -1193,6 +1222,7 @@ export type OnUpdateProductSubscriptionSubscription = {
     __typename: "ProductSubscription",
     id: string,
     email: string,
+    status: ProductSubscriptionStatus,
     productId: string,
     product:  {
       __typename: "Product",
@@ -1222,6 +1252,7 @@ export type OnDeleteProductSubscriptionSubscription = {
     __typename: "ProductSubscription",
     id: string,
     email: string,
+    status: ProductSubscriptionStatus,
     productId: string,
     product:  {
       __typename: "Product",
@@ -1257,6 +1288,7 @@ export type OnCreateNotificationSubscription = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,
@@ -1281,6 +1313,7 @@ export type OnUpdateNotificationSubscription = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,
@@ -1305,6 +1338,7 @@ export type OnDeleteNotificationSubscription = {
       __typename: "ProductSubscription",
       id: string,
       email: string,
+      status: ProductSubscriptionStatus,
       productId: string,
       createdAt: string,
       updatedAt: string,

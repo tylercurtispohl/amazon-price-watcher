@@ -180,6 +180,7 @@ export const createProductSubscription = /* GraphQL */ `mutation CreateProductSu
   createProductSubscription(input: $input, condition: $condition) {
     id
     email
+    status
     productId
     product {
       id
@@ -211,6 +212,7 @@ export const updateProductSubscription = /* GraphQL */ `mutation UpdateProductSu
   updateProductSubscription(input: $input, condition: $condition) {
     id
     email
+    status
     productId
     product {
       id
@@ -242,6 +244,7 @@ export const deleteProductSubscription = /* GraphQL */ `mutation DeleteProductSu
   deleteProductSubscription(input: $input, condition: $condition) {
     id
     email
+    status
     productId
     product {
       id
@@ -278,6 +281,7 @@ export const createNotification = /* GraphQL */ `mutation CreateNotification(
     productSubscription {
       id
       email
+      status
       productId
       createdAt
       updatedAt
@@ -304,6 +308,7 @@ export const updateNotification = /* GraphQL */ `mutation UpdateNotification(
     productSubscription {
       id
       email
+      status
       productId
       createdAt
       updatedAt
@@ -330,6 +335,7 @@ export const deleteNotification = /* GraphQL */ `mutation DeleteNotification(
     productSubscription {
       id
       email
+      status
       productId
       createdAt
       updatedAt

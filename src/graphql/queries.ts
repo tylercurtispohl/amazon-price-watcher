@@ -124,6 +124,7 @@ export const getProductSubscription = /* GraphQL */ `query GetProductSubscriptio
   getProductSubscription(id: $id) {
     id
     email
+    status
     productId
     product {
       id
@@ -165,6 +166,7 @@ export const listProductSubscriptions = /* GraphQL */ `query ListProductSubscrip
     items {
       id
       email
+      status
       productId
       createdAt
       updatedAt
@@ -187,6 +189,7 @@ export const getNotification = /* GraphQL */ `query GetNotification($id: ID!) {
     productSubscription {
       id
       email
+      status
       productId
       createdAt
       updatedAt
@@ -282,6 +285,7 @@ export const productSubscriptionsByProductId = /* GraphQL */ `query ProductSubsc
     items {
       id
       email
+      status
       productId
       createdAt
       updatedAt

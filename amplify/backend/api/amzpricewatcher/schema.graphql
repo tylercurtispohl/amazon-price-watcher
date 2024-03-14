@@ -25,6 +25,7 @@ type PricePoint @model {
 type ProductSubscription @model {
   id: ID! @primaryKey
   email: String!
+  status: ProductSubscriptionStatus!
   productId: ID! @index(name: "byProduct")
   product: Product! @belongsTo(fields: ["productId"])
   notifications: [Notification]
@@ -50,4 +51,10 @@ enum ProductStatus {
 enum NotificationType {
   EMAIL_INITIAL
   EMAIL_NEWPRICE
+}
+
+enum ProductSubscriptionStatus {
+  CONFIGURED
+  ERROR
+  DISABLED
 }
