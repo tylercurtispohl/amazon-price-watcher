@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Nav />
-          <main className="flex flex-row justify-center text-gray-900 pt-6">
+          <main className="flex flex-row justify-center text-gray-900 py-6">
             <div className="max-w-[1280px] w-full px-6">{children}</div>
           </main>
         </Providers>
