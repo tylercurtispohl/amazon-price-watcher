@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Nav } from "./components/nav";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +18,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          <Nav />
-          <main className="flex flex-row justify-center text-gray-900 py-6">
-            <div className="max-w-[1280px] w-full px-6">{children}</div>
-          </main>
-        </Providers>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <Providers>
+            <Nav />
+            <main className="flex flex-row justify-center text-gray-900 py-6">
+              <div className="max-w-[1280px] w-full px-6">{children}</div>
+            </main>
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
