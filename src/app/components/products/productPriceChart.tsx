@@ -72,6 +72,7 @@ export const ProductPriceChart = ({
             //     samples: 10,
             //   },
             // },
+            responsive: true,
             scales: {
               x: {
                 type: "time",
