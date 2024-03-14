@@ -2,7 +2,7 @@
 import { useFormState } from "react-dom";
 import { ProductStatus } from "@/API";
 import { Button } from "@nextui-org/react";
-import { deleteProduct, disableProduct, enableProduct } from "@/app/actions";
+import { disableProduct, enableProduct } from "@/app/actions";
 
 export const ProductButtons = ({
   productId,
@@ -17,9 +17,9 @@ export const ProductButtons = ({
   const [enableState, enableAction] = useFormState(enableProduct, {
     message: "",
   });
-  const [deleteState, deleteAction] = useFormState(deleteProduct, {
-    message: "",
-  });
+  // const [deleteState, deleteAction] = useFormState(deleteProduct, {
+  //   message: "",
+  // });
   return (
     <div className="flex flex-row gap-2">
       {status === ProductStatus.CONFIGURED && (
@@ -42,12 +42,14 @@ export const ProductButtons = ({
           </Button>
         </form>
       )}
-      <form action={deleteAction}>
+      {/* Leaving the delete button commented out for now as the
+      delete functionality is not fully implemented*/}
+      {/* <form action={deleteAction}>
         <input type="hidden" value={productId} name="productId" />
         <Button color="danger" type="submit">
           Delete
         </Button>
-      </form>
+      </form> */}
     </div>
   );
 };

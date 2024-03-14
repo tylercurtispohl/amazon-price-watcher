@@ -1,5 +1,10 @@
 "use client";
-import { ProductSubscriptionsByProductIdQuery } from "@/API";
+
+import {
+  ListProductSubscriptionsQuery,
+  NotificationsByProductSubscriptionIdAndTimestampQuery,
+  ProductSubscriptionsByProductIdQuery,
+} from "@/API";
 import {
   Table,
   TableBody,
@@ -13,47 +18,38 @@ import { useRouter } from "next/navigation";
 
 const tableColumns = [
   {
-    key: "email",
-    label: "Email",
+    key: "timestamp",
+    label: "Sent At",
   },
   {
-    key: "createdAt",
-    label: "Created At",
-  },
-  {
-    key: "status",
-    label: "Status",
+    key: "type",
+    label: "Notification Type",
   },
 ];
 
-export const SubscriptionsTable = ({
-  productSubscriptionsByProductIdQueryResult,
+export const NotificationsTable = ({
+  notificationsByProductSubscriptionIdAndTimestampQueryresult,
 }: {
-  productSubscriptionsByProductIdQueryResult: ProductSubscriptionsByProductIdQuery;
+  notificationsByProductSubscriptionIdAndTimestampQueryresult: NotificationsByProductSubscriptionIdAndTimestampQuery;
 }) => {
-  const subscriptions =
-    productSubscriptionsByProductIdQueryResult.productSubscriptionsByProductId
-      ?.items;
+  const notifications =
+    notificationsByProductSubscriptionIdAndTimestampQueryresult
+      .notificationsByProductSubscriptionIdAndTimestamp?.items;
   const router = useRouter();
 
   return (
     <div>
-      {!!subscriptions?.length && (
+      {!!notifications?.length && (
         <Table
           aria-label="Table of products that are scraped for their price"
-          selectionBehavior="replace"
-          selectionMode="multiple"
-          onRowAction={(key) => {
-            console.log("row clicked");
-            router.push(`/subscription/${key}`);
-          }}
+          isStriped
         >
           <TableHeader columns={tableColumns}>
             {(column) => (
               <TableColumn key={column.key}>{column.label}</TableColumn>
             )}
           </TableHeader>
-          <TableBody items={subscriptions}>
+          <TableBody items={notifications}>
             {(item) => (
               <TableRow key={item?.id}>
                 {(columnKey) => (

@@ -1,11 +1,15 @@
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/api";
 import config from "../../../amplifyconfiguration.json";
-import { getProduct, productSubscriptionsByProductId } from "@/graphql/queries";
+import {
+  getProduct,
+  pricePointsByProductIdAndTimestamp,
+  productSubscriptionsByProductId,
+} from "@/graphql/queries";
 import { Button, Link } from "@nextui-org/react";
 import { SubscriptionsTable } from "@/app/components/subscriptions/subscriptionsTable";
-import { ProductStatus } from "@/API";
 import { ProductButtons } from "@/app/components/products/productButtons";
+import { ProductPriceChart } from "@/app/components/products/productPriceChart";
 
 Amplify.configure(config);
 
@@ -30,6 +34,13 @@ export default async function Page({ params }: { params: { id: string } }) {
     },
   });
 
+  const pricePointsResult = await client.graphql({
+    query: pricePointsByProductIdAndTimestamp,
+    variables: {
+      productId: id,
+    },
+  });
+
   return (
     <div>
       {product ? (
@@ -49,6 +60,11 @@ export default async function Page({ params }: { params: { id: string } }) {
               <h2 className="font-medium tracking-wide">URL:</h2>
               <p>{product.url}</p>
             </div>
+          </div>
+          <div>
+            <ProductPriceChart
+              pricePointsQueryResult={pricePointsResult.data}
+            />
           </div>
           <div>
             <div className="flex flex-row justify-between mb-2">
