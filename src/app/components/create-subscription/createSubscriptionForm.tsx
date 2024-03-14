@@ -16,7 +16,13 @@ export const CreateSubscriptionForm = ({
   return (
     <form action={formAction}>
       <input type="hidden" value={productId} name="productId" />
-      <Input type="email" label="Email" name="email" />
+      <Input
+        className="mb-2"
+        type="email"
+        label="Email"
+        name="email"
+        required
+      />
       <Button color="primary" type="submit">
         Submit
       </Button>

@@ -8,10 +8,12 @@ export default function Page() {
 
   return (
     <div className="">
-      <h1>Create product page</h1>
+      <h1 className="text-2xl tracking-wide font-semibold mb-2">
+        Create product
+      </h1>
       <form action={formAction}>
-        <Input type="text" label="Name" name="name" />
-        <Input type="text" label="URL" name="url" />
+        <Input className="mb-2" type="text" label="Name" name="name" required />
+        <Input className="mb-2" type="text" label="URL" name="url" required />
         <Button color="primary" type="submit">
           Submit
         </Button>
