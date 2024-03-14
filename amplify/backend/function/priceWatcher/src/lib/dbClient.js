@@ -28,6 +28,9 @@ const sendGraphQlRequest = async (query, variables) => {
   return responseBody;
 };
 
+// The queries in this file are copied from <root>/src/graphql/queries and /mutations
+// and sometimes modified. In the future, these should be in shared code between the
+// frontend and backend.
 const getProductQuery = /* GraphQL */ `
   query GetProduct($id: ID!) {
     getProduct(id: $id) {
@@ -204,6 +207,7 @@ const productSubscriptionsByProductId = /* GraphQL */ `
       items {
         id
         email
+        status
         productId
       }
       nextToken

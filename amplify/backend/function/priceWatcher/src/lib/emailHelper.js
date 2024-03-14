@@ -152,7 +152,10 @@ const sendEmails = async (product, newPrice, oldPrice) => {
 
   sgMail.setApiKey(SENDGRID_API_KEY);
 
-  const subscriptions = await getProductSubscriptions(product.id);
+  // Filter the subscriptions to only send to enabled subscriptions
+  const subscriptions = (await getProductSubscriptions(product.id)).filter(
+    (s) => s.status === "CONFIGURED"
+  );
 
   console.log(`Found ${subscriptions.length} subscriptions: `, subscriptions);
 
