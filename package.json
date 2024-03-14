@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.1",
     "@nextui-org/react": "^2.2.10",
     "aws-amplify": "^6.0.19",
     "chart.js": "^4.4.2",
