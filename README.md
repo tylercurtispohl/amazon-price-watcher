@@ -52,7 +52,7 @@ Amplify gives us the ability to create almost any AWS resource a project needs. 
 * Generated TypeScript types for interacting with the AppSync API
 * An SQS Queue for communication between Lambdas
 
-One downside of Amplify that I found while doing this project is that it can push you out of the free tier of AWS just from deploying. This is because deployments make requests to and from S3 storage. S3 pricing gives you 2000 put, copy, post, or list requests on the free tier. During development, you'll find yourself deploying builds often and that racks up S3 requests fast. I had to actually create a 2 AWS accounts during development of this project to avoid spending any money (although it would probably only cost a few cents per month to continue with the project).
+One downside of Amplify that I found while doing this project is that it can push you out of the free tier of AWS just from deploying. This is because deployments make requests to and from S3 storage. S3 pricing gives you 2000 put, copy, post, or list requests on the free tier. During development, you'll find yourself deploying builds often and that racks up S3 requests fast. I had to actually create 2 AWS accounts during development of this project to avoid spending any money (although it would probably only cost a few cents per month to continue with the project).
 
 ### DynamoDB and AppSync
 
